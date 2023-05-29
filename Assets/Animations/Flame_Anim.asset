@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: Flame_Anim
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: 21300000, guid: ffa88257c319ce6479e9692183132601, type: 3}
+  - {fileID: 21300000, guid: a335e0daa00fdcf4a967fafe39755074, type: 3}
+  - {fileID: 21300000, guid: a3050a9ae98f4a14d9c5b5e6897c1b65, type: 3}
+  - {fileID: 21300000, guid: ee54500a902d0b341a650048739552b9, type: 3}
+  - {fileID: 21300000, guid: f483694ffec8e4644924a505d0912f1c, type: 3}
+  - {fileID: 21300000, guid: f898557621872704abea84e923eeaf45, type: 3}
+  - {fileID: 21300000, guid: b4071291d0e344143ad8c504f4811d03, type: 3}
+  - {fileID: 21300000, guid: 64ec6496497584b449eb7bf2c67cb162, type: 3}
+  - {fileID: 21300000, guid: aff7d7f5bd98b104c810298c713bfc21, type: 3}
+  m_MinSpeed: 20
+  m_MaxSpeed: 30
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 0
