@@ -72,13 +72,15 @@ namespace Pathfinding {
 		/// In the Custom mode you can set the acceleration to any positive value.
 		/// </summary>
 		public float maxAcceleration = -2.5f;
+        private float jumpHeight = 20;
+		private bool isGrounded;
 
-		/// <summary>
-		/// Rotation speed in degrees per second.
-		/// Rotation is calculated using Quaternion.RotateTowards. This variable represents the rotation speed in degrees per second.
-		/// The higher it is, the faster the character will be able to rotate.
-		/// </summary>
-		[UnityEngine.Serialization.FormerlySerializedAs("turningSpeed")]
+        /// <summary>
+        /// Rotation speed in degrees per second.
+        /// Rotation is calculated using Quaternion.RotateTowards. This variable represents the rotation speed in degrees per second.
+        /// The higher it is, the faster the character will be able to rotate.
+        /// </summary>
+        [UnityEngine.Serialization.FormerlySerializedAs("turningSpeed")]
 		public float rotationSpeed = 360;
 
 		/// <summary>Distance from the end of the path where the AI will start to slow down</summary>
@@ -250,7 +252,27 @@ namespace Pathfinding {
 			interpolator.GetRemainingPath(buffer);
 		}
 
-		protected override void OnDisable () {
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+			isGrounded = true;
+        }
+
+       
+        public void JumpButton()
+        {
+			if (isGrounded)
+			{
+				velocity2D = new Vector2(velocity2D.x, velocity2D.y);
+
+				velocity2D.y = 1;
+
+				isGrounded = false;
+			}
+			else { velocity2D.y = -10; rigid2D.gravityScale = 10; }
+
+        }
+
+        protected override void OnDisable () {
 			base.OnDisable();
 
 			// Release current path so that it can be pooled
@@ -277,6 +299,8 @@ namespace Pathfinding {
 		/// Finally it is returned to the seeker which forwards it to this function.
 		/// </summary>
 		protected override void OnPathComplete (Path newPath) {
+
+			JumpButton();
 			ABPath p = newPath as ABPath;
 
 			if (p == null) throw new System.Exception("This function only handles ABPaths, do not use special path types");

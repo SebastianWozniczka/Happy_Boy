@@ -6524,7 +6524,7 @@ MonoBehaviour:
   repathRateCompatibility: NaN
   canSearchCompability: 0
   orientation: 1
-  enableRotation: 1
+  enableRotation: 0
   autoRepath:
     mode: 2
     interval: 0.5
@@ -6535,12 +6535,12 @@ MonoBehaviour:
   maxAcceleration: 6
   rotationSpeed: 360
   slowdownDistance: 0.6
-  pickNextWaypointDist: 1.2
+  pickNextWaypointDist: 1.45
   endReachedDistance: 0.2
-  alwaysDrawGizmos: 0
+  alwaysDrawGizmos: 1
   slowWhenNotFacingTarget: 0
   whenCloseToDestination: 0
-  constrainInsideGraph: 0
+  constrainInsideGraph: 1
 --- !u!114 &1002755557
 MonoBehaviour:
   m_ObjectHideFlags: 0
