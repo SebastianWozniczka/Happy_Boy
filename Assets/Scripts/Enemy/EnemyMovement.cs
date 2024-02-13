@@ -9,30 +9,28 @@ public class EnemyMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator anim;   
-    private GameObject go;
 
-    public bool left, right, up, upRight, fight, isGrounded, playerContact;
+    public bool left, right, up, upRight, fight, playerContact;
     public float horizontal, hor = 0; 
     public float jumping;
     public float distance;
 
-    private float jumpHeight = 20, timeRotation, timeR, timeL, timeContact,timeJump,jumpSpeed;
+    private float timeRotation, timeR, timeL, timeRotation2;
     private bool isFacingRight;   
     
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        go = GameObject.FindWithTag("Enemy");
         
-        isGrounded = true;
         up = false;
         timeRotation = 0;
+        timeRotation2 = 0;
         timeR = 0;
         timeL = 0;
         distance = 0;
-        timeContact = 0;
-        timeJump = 0;
+       
+        
     }
 
     
@@ -44,29 +42,24 @@ public class EnemyMovement : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
-        if (collision.gameObject.name == "ground")
-        {
-            isGrounded = true;
-        }
+   
 
         if (collision.gameObject.name == "Swordsman")
         {
             playerContact = true;
         }
 
-        up = false;
     }
 
     private void Rotation()
     {
         if (isFacingRight && horizontal > 0f || !isFacingRight && horizontal < 0f)
         {
-            timeRotation += Time.deltaTime;
-            if (timeRotation > 0.5f)
+            timeRotation2 += Time.deltaTime;
+            if (timeRotation2 > 0.5f)
             {
                 Flip();
-                timeRotation = 0;
+                timeRotation2 = 0;
             }
         }
     }
@@ -84,95 +77,24 @@ public class EnemyMovement : MonoBehaviour
     public void Movement()
     {
 
-        if (!isGrounded)
-        {
-            timeJump += Time.deltaTime;
-            if(timeJump > 0.5f)
-            {
-                jumpSpeed = -100;
-                timeJump = 0;
-            }
-        }else jumpSpeed = rb.velocity.y;
-
-
-
-        if (playerContact)
-        {
-            right = true;
-
-            if (right)
-            {
-                right = false;
-                left = true;
-            }
-
-            if (left)
-            {
-                left = false;
-                right = true;
-            }
-
-            timeContact += Time.deltaTime;
-            if(timeContact > 1)
-            {
-
-                if (left)
-                {
-                    left =false;
-                    right = true;
-                }
-
-                if (right)
-                {
-                    right=false;
-                    left = true;
-                }
-
-
-                playerContact = false;
-                timeContact = 0;
-            }
-            
-
-        } else
-               
-        /*{
-
-            if (player.transform.position.x < transform.position.x)
-            {
-                left = true;
-                right = false;
-            }
-            else if (player.transform.position.x > transform.position.x)
-            {
-                right = true;
-                left = false;
-            }
-            else if (player.transform.position.x == transform.position.x)
-            {
-                up = true;
-                right = true;
-
-                timeJump += Time.deltaTime;
-                if (timeJump > 1)
-                {
-                    right = false;
-                    timeJump = 0;
-                }
-            }
-
-        }*/
-
-
-        distance = Vector2.Distance(go.transform.position, transform.position);
 
         
-        rb.velocity = new Vector2(horizontal,jumpSpeed);
 
-        if (up)
+    if (player.transform.position.x > transform.position.x)
         {
-            //JumpButton();
-        }
+            movRight();
+                  
+            }
+
+           
+            
+           if(player.transform.position.x < transform.position.x ){
+
+            movLeft();
+        } 
+        
+        rb.velocity = new Vector2(horizontal,rb.velocity.y);
+     
 
         if (right)
         {
@@ -206,20 +128,32 @@ public class EnemyMovement : MonoBehaviour
 
     }
 
-    public void JumpButton()
+    private void movLeft()
     {
-        if (isGrounded)
+
+        timeRotation += Time.deltaTime;
+
+
+        if(timeRotation > 1)
         {
-
-            rb.velocity = Vector2.up * jumpHeight;
-
-            jumping = 50;
-
-            isGrounded = false;
+            right = false;
+            left = true;
+            timeRotation = 0;
         }
-        else jumping = 0;
+       
+    }
 
+    private void movRight()
+    {
+        timeRotation += Time.deltaTime;
+        if(timeRotation > 1)
+        {
+            right = true;
+            left = false;
+            timeRotation = 0;
+        }
 
+      
     }
 
     private void Animation()

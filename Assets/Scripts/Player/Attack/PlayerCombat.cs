@@ -1,3 +1,5 @@
+using Pathfinding.Util;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
@@ -33,6 +35,8 @@ public class PlayerCombat : MonoBehaviour
 
     void Attack()
     {      
+       
+
         animator.SetTrigger("attack");
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
@@ -46,11 +50,17 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    public void OnDrawGizmosSelected()
+
+    private void OnDrawGizmosSelected()
     {
         if (attackPoint == null)
-        return;
-
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);   
+            return;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
+
+
+    
+  
+
+   
 }

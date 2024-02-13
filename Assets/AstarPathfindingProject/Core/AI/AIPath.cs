@@ -6,6 +6,7 @@ namespace Pathfinding {
 	using Pathfinding.RVO;
 	using Pathfinding.Util;
 
+
 	/// <summary>
 	/// AI for following paths.
 	/// This AI is the default movement script which comes with the A* Pathfinding Project.
@@ -60,6 +61,7 @@ namespace Pathfinding {
 	/// </summary>
 	[AddComponentMenu("Pathfinding/AI/AIPath (2D,3D)")]
 	public partial class AIPath : AIBase, IAstarAI {
+
 		/// <summary>
 		/// How quickly the agent accelerates.
 		/// Positive values represent an acceleration in world units per second squared.
@@ -72,7 +74,8 @@ namespace Pathfinding {
 		/// In the Custom mode you can set the acceleration to any positive value.
 		/// </summary>
 		public float maxAcceleration = -2.5f;
-        private float jumpHeight = 20;
+        private float jumpHeight = 0;
+		
 		private bool isGrounded;
 
         /// <summary>
@@ -258,19 +261,7 @@ namespace Pathfinding {
         }
 
        
-        public void JumpButton()
-        {
-			if (isGrounded)
-			{
-				velocity2D = new Vector2(velocity2D.x, velocity2D.y);
-
-				velocity2D.y = 1;
-
-				isGrounded = false;
-			}
-			else { velocity2D.y = -10; rigid2D.gravityScale = 10; }
-
-        }
+       
 
         protected override void OnDisable () {
 			base.OnDisable();
@@ -300,7 +291,7 @@ namespace Pathfinding {
 		/// </summary>
 		protected override void OnPathComplete (Path newPath) {
 
-			JumpButton();
+			
 			ABPath p = newPath as ABPath;
 
 			if (p == null) throw new System.Exception("This function only handles ABPaths, do not use special path types");
@@ -415,7 +406,7 @@ namespace Pathfinding {
 				velocity2D -= Vector2.ClampMagnitude(velocity2D, currentAcceleration * deltaTime);
 			}
 
-			velocity2D = MovementUtilities.ClampVelocity(velocity2D, maxSpeed, slowdown, slowWhenNotFacingTarget && enableRotation, forwards);
+			//velocity2D = MovementUtilities.ClampVelocity(velocity2D, maxSpeed, slowdown, slowWhenNotFacingTarget && enableRotation, forwards);
 
 			ApplyGravity(deltaTime);
 
