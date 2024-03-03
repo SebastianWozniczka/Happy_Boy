@@ -98,7 +98,7 @@ public class PlayerMove : MonoBehaviour
     private void Dissolve()
     {
         isAlive = false;
-        soul.gameObject.active = true;
+        //soul.gameObject.active = true;
         soul.GetComponent<SpriteRenderer>().enabled = true;     
         flame.SetActive(false);
         hud.lose.enabled = true;
