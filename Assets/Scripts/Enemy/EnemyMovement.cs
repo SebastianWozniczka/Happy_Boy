@@ -1,44 +1,60 @@
 
 using System;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 
 public class EnemyMovement : MonoBehaviour
 {
     public GameObject player;
+ 
+    
 
     private Rigidbody2D rb;
-    private Animator anim;   
+    private Animator anim;
+   
+
 
     public bool left, right, up, upRight, fight, playerContact;
     public float horizontal, hor = 0; 
     public float jumping;
     public float distance;
+  
 
-    private float timeRotation, timeR, timeL, timeRotation2;
-    private bool isFacingRight;   
+    private float timeRotation,   timeRotation2, timeRotate;
+    private bool isFacingRight, canJump;   
     
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        
+
+
+       
+     
+       
+
         up = false;
         timeRotation = 0;
         timeRotation2 = 0;
-        timeR = 0;
-        timeL = 0;
-        distance = 0;
        
+       
+        distance = 0;
+        timeRotate = 0;
         
+
     }
 
-    
+   
+
     void Update()
     {
         Rotation();
         Movement();
         Animation();
+
+       
+
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -78,9 +94,27 @@ public class EnemyMovement : MonoBehaviour
     {
 
 
-        
 
-    if (player.transform.position.x > transform.position.x)
+        if (playerContact)
+        {
+            horizontal = -horizontal;
+
+            timeRotate += Time.deltaTime;
+
+            if(timeRotate > 1)
+            {
+                horizontal = -horizontal;
+                timeRotate = 0;
+                playerContact = false;
+            }
+            
+        }
+       
+
+       
+
+
+        if (player.transform.position.x > transform.position.x)
         {
             movRight();
                   
@@ -89,7 +123,7 @@ public class EnemyMovement : MonoBehaviour
            
             
            if(player.transform.position.x < transform.position.x ){
-
+            
             movLeft();
         } 
         
@@ -98,24 +132,19 @@ public class EnemyMovement : MonoBehaviour
 
         if (right)
         {
-            timeR += Time.deltaTime;
-
-            if(timeR > 0.1f)
-            {
-                horizontal = 10;
-                timeR = 0;
-            }
+            
+                
+                horizontal = 7;
+             
             
 
         }
         else if (left)
         {
-            timeL += Time.deltaTime;
-            if(timeL > 0.1f)
-            {
-                horizontal = -10;
-                timeL = 0;
-            }
+           
+          
+                horizontal = -7;
+           
 
            
 
@@ -159,8 +188,8 @@ public class EnemyMovement : MonoBehaviour
     private void Animation()
     {
         if (horizontal != 0f && rb.velocity.y == 0) anim.SetTrigger("walk");
-        else if (rb.velocity.y != 0) anim.SetTrigger("jump");
-        else if (rb.velocity.y == 0) anim.SetTrigger("stand");
+        if ((int)rb.velocity.y != (int)0) anim.SetTrigger("jump");
+        if (rb.velocity.y == 0 && horizontal == 0) anim.SetTrigger("stand");
     }
 
 }

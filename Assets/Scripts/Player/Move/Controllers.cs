@@ -44,7 +44,9 @@ public class Controllers : MonoBehaviour
     {
         Rotation();
         Movement();
-        Animation();     
+        Animation();
+
+      
     }
 
     private void Rotation()
