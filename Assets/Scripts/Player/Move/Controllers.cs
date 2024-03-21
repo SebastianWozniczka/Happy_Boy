@@ -5,9 +5,12 @@ using UnityEngine;
 
 public class Controllers : MonoBehaviour
 {
+    [SerializeField] PhysicsMaterial2D physicsMaterial1;
+
     private Rigidbody2D rb;
     private Animator anim;
     private Ground ground;
+
 
     public bool left, right, up, upRight, fight;
     public float delayBeforeDoubleJump = 0.5f;
@@ -16,30 +19,65 @@ public class Controllers : MonoBehaviour
     public float jumping;
     public float attackRate = 2.0f;
 
-    private float jumpHeight = 20;   
+    private readonly float jumpHeight = 20;   
     private bool isFacingRight;  
     private bool isAble;
     private float nextAttackTime = 0f;
+ 
+
     
    
     private void Start()
     {
        rb = GetComponent<Rigidbody2D>();
        anim = GetComponent<Animator>();
-       ground = FindAnyObjectByType<Ground>();        
+       ground = FindAnyObjectByType<Ground>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+
+
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left);
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right);
+
+        if (hitLeft.distance <= 0.1 || hitRight.distance <= 0.1 || collision.gameObject.name == "Enemy_1")
+        {
+            rb.sharedMaterial = physicsMaterial1;
+        }
+        else
+        {
+            rb.sharedMaterial = null;
+        }
+
+
+        if(collision.gameObject.name == "Enemy_1")
+        {
+            rb.mass = 0.5f;
+        }
+        else
+        {
+            rb.mass = 1.0f;
+        }
+        
+
+        
+
+
         if (collision.gameObject.name == "ground")
         {
+            physicsMaterial1.bounciness = 0;
             if (!ground.isGrounded)
             {
                 rb.AddForce(new Vector2(-horizontal * 30,0));
+               
             }
         }
         up = false;
     }
+
+
     private void Update()
     {
         Rotation();
@@ -92,7 +130,15 @@ public class Controllers : MonoBehaviour
 
     public void Movement()
     {
-       rb.velocity = new Vector2(horizontal, rb.velocity.y);     
+
+       rb.velocity = new Vector2(horizontal, rb.velocity.y);
+
+
+      
+
+
+     
+
 
         if (up)
         {          
@@ -105,7 +151,7 @@ public class Controllers : MonoBehaviour
             horizontal = 15;
             
         }
-        else if (left)
+        else if (left )
         {
             horizontal = -15;
            
@@ -124,7 +170,7 @@ public class Controllers : MonoBehaviour
 
             jumping = 50;
            
-            Invoke("EnableDoubleJump()", delayBeforeDoubleJump);
+            
 
             if (canDoubleJump)
             {
@@ -136,10 +182,7 @@ public class Controllers : MonoBehaviour
         }
         else jumping = 0;
         
-        void EnableDoubleJump()
-        {
-            canDoubleJump = true;
-        }
+      
     }
 
     public void Up()

@@ -1,6 +1,3 @@
-using Pathfinding.Util;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,16 +7,14 @@ public class Enemy : MonoBehaviour
    private Rigidbody2D rb;
     public Transform playerTr;
 
-   public int maxHealth = 100;
-  
-   private float jumpHeight;
+   private readonly float maxHealth = 1;
    private float jumpTimer;
 
-   private int currentHealth;
+   private float currentHealth;
 
     private bool isGrounded;
     private bool canJump;
-    private float x = 0;
+
     
     void Start()
     {
@@ -27,12 +22,13 @@ public class Enemy : MonoBehaviour
 
         currentHealth = maxHealth;
         jumpTimer = 0;
+      
     }
 
 
-    public void TakeDamage(int damege)
+    public void TakeDamage(float damage)
     {
-        currentHealth -= damege;
+        currentHealth -= (float)damage/100f;
 
         if(currentHealth <= 0)
         {
@@ -95,23 +91,11 @@ public class Enemy : MonoBehaviour
         Debug.Log("Enemy died!");
     }
   
-    void Update()
+    public void Update()
     {
-        if(transform.position.x > playerTr.position.x)
-        {
-            x = 15;
-        }
+        healthBar.fillAmount = currentHealth;
 
-        if(transform.position.x < playerTr.position.x)
-        {
-            x = -15;
-        }
-
-        if(transform.position.x == playerTr.position.x)
-        {
-            x = 0;
-        }
-
+       
 
         RaycastHit2D hitGround = Physics2D.Raycast(transform.position, -Vector2.up);
        
@@ -143,7 +127,7 @@ public class Enemy : MonoBehaviour
 
 
 
-        healthBar.fillAmount = currentHealth / 100;
+        
 
        
     }

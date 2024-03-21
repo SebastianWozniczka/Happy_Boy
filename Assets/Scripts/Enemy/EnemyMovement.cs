@@ -22,7 +22,7 @@ public class EnemyMovement : MonoBehaviour
   
 
     private float timeRotation,   timeRotation2, timeRotate;
-    private bool isFacingRight, canJump;   
+    private bool isFacingRight;  
     
     void Start()
     {
@@ -116,7 +116,7 @@ public class EnemyMovement : MonoBehaviour
 
         if (player.transform.position.x > transform.position.x)
         {
-            movRight();
+            MovRight();
                   
             }
 
@@ -124,7 +124,7 @@ public class EnemyMovement : MonoBehaviour
             
            if(player.transform.position.x < transform.position.x ){
             
-            movLeft();
+            MovLeft();
         } 
         
         rb.velocity = new Vector2(horizontal,rb.velocity.y);
@@ -157,7 +157,7 @@ public class EnemyMovement : MonoBehaviour
 
     }
 
-    private void movLeft()
+    private void MovLeft()
     {
 
         timeRotation += Time.deltaTime;
@@ -172,7 +172,7 @@ public class EnemyMovement : MonoBehaviour
        
     }
 
-    private void movRight()
+    private void MovRight()
     {
         timeRotation += Time.deltaTime;
         if(timeRotation > 1)

@@ -6332,7 +6332,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1737336913}
   playerTr: {fileID: 2006530735}
-  maxHealth: 100
 --- !u!1 &1015542376
 GameObject:
   m_ObjectHideFlags: 0
@@ -9869,7 +9868,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -9879,7 +9878,7 @@ MonoBehaviour:
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 1
+  m_FillClockwise: 0
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
@@ -10564,7 +10563,7 @@ Rigidbody2D:
   m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 15f89108cc31656479fe63961766fadb, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -10641,6 +10640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4ffa5d46e23024c83cd7412fe3c52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsMaterial1: {fileID: 6200000, guid: 15f89108cc31656479fe63961766fadb, type: 2}
   left: 0
   right: 0
   up: 0
@@ -10694,7 +10694,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   attackPoint: {fileID: 940806135}
-  attackDamage: 40
   attackRange: 1
   attackRate: 2
   nextAttackTime: 0
