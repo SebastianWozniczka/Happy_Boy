@@ -17,9 +17,6 @@ public class PlayerMove : MonoBehaviour
     public Hud hud;
     public SpriteRenderer spriteRenderer;
 
-    private Animator animator;
-    private Shader dissolve;
-    private Controllers controllers;
 
     public float timeRemaining = 1;
     public bool isAlive = true;  
@@ -30,9 +27,7 @@ public class PlayerMove : MonoBehaviour
 
 
     void Awake()
-    {
-        controllers = state.GetComponent<Controllers>();   
-        animator = GetComponent<Animator>();
+    {  
       
         timer = 0;
         countJump = 2;
