@@ -30,9 +30,6 @@ public class EnemyMovement : MonoBehaviour
         anim = GetComponent<Animator>();
 
 
-       
-     
-       
 
         up = false;
         timeRotation = 0;
@@ -49,8 +46,12 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
-        Rotation();
-        Movement();
+
+        if (!Enemy.isDead)
+        {
+            Rotation();
+            Movement();
+        }
         Animation();
 
        

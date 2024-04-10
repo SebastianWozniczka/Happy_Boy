@@ -107,4 +107,9 @@ public class PlayerMove : MonoBehaviour
             timer = 0;
         }
     }
+
+    internal void TakeDamage(float attackDamage)
+    {
+        countHit++;
+    }
 }
